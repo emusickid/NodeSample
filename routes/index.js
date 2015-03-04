@@ -41,30 +41,30 @@ router.get('/', function(req, res){
 	// 	lastname: req.params.lastname
 	// });
 
-	var RestClient = require('node-rest-client').Client;
+	// var RestClient = require('node-rest-client').Client;
 
-	args = {
-		headers:{"X-Tableau-Auth": "e587888212cda7bb6899a89d21fa0100"}
-	};
+	// args = {
+	// 	headers:{"X-Tableau-Auth": "e587888212cda7bb6899a89d21fa0100"}
+	// };
 
-	restClient = new RestClient();
-	restClient.get("http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/api/2.0/sites",args, function(data, response){
-            // parsed response body as js object 
-            // console.log(data);
+	// restClient = new RestClient();
+	// restClient.get("http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/api/2.0/sites",args, function(data, response){
+ //            // parsed response body as js object 
+ //            // console.log(data);
 
-           	// var sites = data.sites;
+ //           	// var sites = data.sites;
 
-           	console.log(data.tsResponse.sites[0].site.name);
+ //           	//console.log(data.tsResponse.sites[0].site);
 
-            // raw response 
-            // console.log(response);
+ //            // raw response 
+ //            // console.log(response);
 
-   //          for (var key in data) {
-			//   if (data.hasOwnProperty(key)) {
-			//     console.log(key);
-			//   }
-			// }
-        });
+ //   //          for (var key in data) {
+	// 		//   if (data.hasOwnProperty(key)) {
+	// 		//     console.log(key);
+	// 		//   }
+	// 		// }
+ //        });
 	res.render('index', {
 		dashboard: 'Energy Trades'
 	})

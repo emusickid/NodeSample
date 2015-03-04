@@ -7,22 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+   
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
 
     <title>{{ appname }}</title>
 
     <!-- Bootstrap core CSS -->
     <!-- href='/stylesheets/style.css' -->
-    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="/stylesheets/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
     <link href="/stylesheets/dashboard.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+   
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -250,9 +249,10 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="/stylesheets//bootstrap.min.js"></script>
-    <script src="/stylesheets//docs.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/docs.min.js"></script>
+    <script src="/javascripts/ie-emulation-modes-warning.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/stylesheets//ie10-viewport-bug-workaround.js"></script>
+    <script src="/javascripts/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
