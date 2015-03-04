@@ -54,7 +54,7 @@ router.get('/', function(req, res){
 
            	// var sites = data.sites;
 
-           	console.log(data.tsResponse.sites[0].site);
+           	console.log(data.tsResponse.sites[0].site.name);
 
             // raw response 
             // console.log(response);
@@ -65,6 +65,9 @@ router.get('/', function(req, res){
 			//   }
 			// }
         });
+	res.render('index', {
+		dashboard: 'Energy Trades'
+	})
 });
 
 router.get('/login', function(req, res){
