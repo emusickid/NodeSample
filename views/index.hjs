@@ -72,7 +72,9 @@
       var vizDiv = document.getElementById('tableauViz');
       var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/POC/views/eric_testing_security/MarktoMarket";
       var options = {
-
+         hideTabs: true,
+         width: "1900px",
+         height: "800px"
       };
       viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
     </script>
