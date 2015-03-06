@@ -65,6 +65,11 @@ router.get('/', function(req, res){
 	// 		//   }
 	// 		// }
  //        });
+	// var vizDiv = document.getelementById('viz');
+	// var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/POC/views/eric_testing_security/MarktoMarket#1";
+	// var options = {
+	// };
+	// viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
 	res.render('index', {
 		dashboard: 'Energy Trades'
 	})
