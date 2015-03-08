@@ -46,7 +46,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sites <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Trading <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
@@ -57,9 +57,9 @@
                 <li><a href="#">One more separated link</a></li>
               </ul>
             </li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="#">Risk</a></li>
+            <li><a href="#">Operations</a></li>
+            <li><a href="/login">Accounting & Risk</a></li>
           </ul>
         </div>
       </div>
@@ -70,10 +70,10 @@
 
     <script type="text/javascript">
       var vizDiv = document.getElementById('tableauViz');
-      var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/POC/views/eric_testing_security/MarktoMarket";
+      var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/testsite/views/allegro_risk/CounterpartyExposurebyCreditRating";
       var options = {
          hideTabs: true,
-         width: "1900px",
+         width: "1200px",
          height: "800px"
       };
       viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
