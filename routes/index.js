@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var pg = require('pg');
+var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@54.187.16.121:8060/workgroup";;
 
-var cassandra = require('cassandra-driver');
-var uuid = require('node-uuid');
 
 
 router.post('/new', function(req, res){
@@ -23,56 +23,60 @@ router.post('/new', function(req, res){
 });
 
 router.get('/', function(req, res){
-	
-	// var client = new cassandra.Client({contactPoints: ['52.11.54.138'], keyspace: 'demo'});
-	 
-	// var query = "INSERT INTO users (id, lastname, age, city, email, firstname) VALUES (?, ?, 35, 'Austin', 'bob@example.com', 'Bob')";
-	// var params = [uuid.v1(), req.params.lastname];
 
-	// client.execute(query, params, {prepare: true}, function (err, result) {
- //            console.log(err); 
- //    });
-    
-	// res.render('index', {
-	// 	dashboard: 'Energy Trades',
-	// 	trading: 'Energy Trades',
-	// 	appname: 'Allegro Insight',
-	// 	title: 'Allegro Insight',
-	// 	lastname: req.params.lastname
-	// });
+	var results = [];
 
-	// var RestClient = require('node-rest-client').Client;
+    // Get a Postgres client from the connection pool
+    var client = new pg.Client(connectionString);
 
-	// args = {
-	// 	headers:{"X-Tableau-Auth": "e587888212cda7bb6899a89d21fa0100"}
-	// };
+    client.connect(function(err) {
+		
+        // SQL Query > Select Data
+        var query = client.query('SELECT DISTINCT ' + 
+    '_sites.name AS SiteName, ' +
+    '_projects.name AS ProjectName, ' + 
+    '_workbooks.name AS WorkbookName, ' +
+    '_views.name AS ViewName, ' +
+    '_views.view_url AS ViewURL ' +
+'FROM ' +
+    '_sites ' +
+    'INNER JOIN _projects ON _sites.id = _projects.site_id ' +
+    'INNER JOIN _workbooks ON _projects.id = _workbooks.project_id ' +
+    'INNER JOIN _views ON _workbooks.id = _views.workbook_id ' +
+    'INNER JOIN next_gen_permissions perm ON _views.id = perm.authorizable_id ' +
+    'INNER JOIN _groups ON perm.grantee_id = _groups.id ' +
+    'INNER JOIN group_users ON _groups.id = group_users.group_id ' +
+    'INNER JOIN _users ON group_users.user_id = _users.id ' +
+'WHERE ' +
+    '_sites.name = $1 ' +
+    'AND _projects.name NOT IN ($2, $3) ' +
+    'AND perm.authorizable_type = $4 ' +
+    'AND perm.grantee_type = $5 ' +
+    'AND _users.name = $6 ' +
+'ORDER BY ViewName', ['POC', 'default', 'Tableau Samples', 'View', 'Group', 'poc_agusa']);
 
-	// restClient = new RestClient();
-	// restClient.get("http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/api/2.0/sites",args, function(data, response){
- //            // parsed response body as js object 
- //            // console.log(data);
 
- //           	// var sites = data.sites;
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
 
- //           	//console.log(data.tsResponse.sites[0].site);
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            return res.json(results);
+        });
 
- //            // raw response 
- //            // console.log(response);
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
 
- //   //          for (var key in data) {
-	// 		//   if (data.hasOwnProperty(key)) {
-	// 		//     console.log(key);
-	// 		//   }
-	// 		// }
- //        });
-	// var vizDiv = document.getelementById('viz');
-	// var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/POC/views/eric_testing_security/MarktoMarket#1";
-	// var options = {
-	// };
-	// viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
-	res.render('index', {
-		dashboard: 'Energy Trades'
-	})
+    });
+
+	// 	res.render('index', {
+	// 	dashboard: 'Energy Trades'
+	// })
 });
 
 router.get('/login', function(req, res){

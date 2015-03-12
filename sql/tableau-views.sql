@@ -33,7 +33,8 @@ SELECT DISTINCT
     _sites.name AS SiteName,
     _projects.name AS ProjectName,
     _workbooks.name AS WorkbookName,
-    _views.name AS ViewName
+    _views.name AS ViewName,
+    _views.view_url AS ViewURL
 FROM 
     _sites
     INNER JOIN _projects ON _sites.id = _projects.site_id
