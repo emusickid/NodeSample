@@ -83,10 +83,15 @@ router.get('/sites', function(req, res){
 });
 // router
 
-router.get('/views', function(req, res){
+router.get('/views/:site/:username?', function(req, res){
 
+	// console.log(req.query.username);
+	var site = req.params.site;
+	var username = req.query.username;
+
+	console.log(site);
+	console.log(username);
 	var results = [];
-
     // Get a Postgres client from the connection pool
     var client = new pg.Client(connectionString);
 
@@ -118,7 +123,7 @@ router.get('/views', function(req, res){
 			'ORDER BY ViewName';
 
 		   
-	    var query = client.query(sql, ['POC', 'default', 'Tableau Samples', 'View', 'Group', 'poc_agusa']);
+	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group', username]);
 
 
         // Stream results back one row at a time
