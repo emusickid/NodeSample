@@ -89,8 +89,8 @@ router.get('/views/:site/:username?', function(req, res){
 	var site = req.params.site;
 	var username = req.query.username;
 
-	console.log(site);
-	console.log(username);
+	// console.log(site);
+	// console.log(username);
 	var results = [];
     // Get a Postgres client from the connection pool
     var client = new pg.Client(connectionString);
