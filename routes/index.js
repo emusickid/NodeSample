@@ -83,11 +83,11 @@ router.get('/sites', function(req, res){
 });
 // router
 
-router.get('/views/:site/:username?', function(req, res){
+router.get('/views/:site/:username', function(req, res){
 
 	// console.log(req.query.username);
 	var site = req.params.site;
-	var username = req.query.username;
+	var username = req.params.username;
 
 	// console.log(site);
 	// console.log(username);
