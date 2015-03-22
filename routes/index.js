@@ -3,6 +3,24 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@54.187.16.121:8060/workgroup";;
 
+router.get('/', function(req, res){
+
+	getSites(function(results){
+		console.log(results);
+
+		res.render('index', {
+			items : results
+		});
+	});
+
+ 	//console.log(sites);
+
+	console.log('Boo!!!');
+	// res.render('index', {
+	// 	items : getSites()
+	// });
+});
+
 
 router.get('/projects', function(req, res){
 
@@ -81,7 +99,6 @@ router.get('/sites', function(req, res){
 
     });
 });
-// router
 
 router.get('/views/:site/:username', function(req, res){
 
@@ -144,5 +161,42 @@ router.get('/views/:site/:username', function(req, res){
 
     });
 });
+
+
+function getSites(callback){
+	var results = [];
+
+    // Get a Postgres client from the connection pool
+    var client = new pg.Client(connectionString);
+
+    client.connect(function(err) {
+		
+	    // SQL Query > Select Data
+	    var sql = 'SELECT name FROM _sites WHERE status = $1 AND name NOT IN ($2) ORDER BY name;'
+		
+		
+	    var query = client.query(
+			sql, ['active', 'Default']);
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+        	// console.log(row);
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            //console.log(results);
+           callback(results);
+        });
+
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
+    });
+}
+
 
 module.exports = router;
