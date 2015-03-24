@@ -2,23 +2,39 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@54.187.16.121:8060/workgroup";;
+var HashMap = require('hashmap').HashMap;
 
 router.get('/', function(req, res){
 
-	getSites(function(results){
-		console.log(results);
+    // var map = new HashMap();
 
-		res.render('index', {
-			items : results
-		});
-	});
+    // map.set({'name' : 'Risk'}, [{'name' : 'MTM View'}, {'name' : 'View2'}]);
+    // map.set({'name' : 'Trade'}, [{'name' :'Trade View'}, {'name': 'View3'}]);
+    
+    // res.send(map);
 
- 	//console.log(sites);
+	// getSites(function(results){
+	// 	res.send(results);
 
-	console.log('Boo!!!');
-	// res.render('index', {
-	// 	items : getSites()
+	// 	// res.render('index', {
+	// 	// 	sites : results
+	// 	// });
 	// });
+
+	// getProjects(function(results){
+	// 	res.render('index', {
+	// 		projects : results
+	// 	});
+	// });
+
+ 	getProjectView(function(results){
+
+ 		//res.send(results);
+        res.render('index', {
+            projects: results
+        });
+ 		// console.log(results);
+ 	});
 });
 
 
@@ -136,11 +152,11 @@ router.get('/views/:site/:username', function(req, res){
 				'AND _projects.name NOT IN ($2, $3) ' +
 				'AND perm.authorizable_type = $4 ' +
 				'AND perm.grantee_type = $5 ' +
-				'AND _users.name = $6 ' +
+				// 'AND _users.name = $6 ' +
 			'ORDER BY ViewName';
 
 		   
-	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group', username]);
+	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group' /*, username*/]);
 
 
         // Stream results back one row at a time
@@ -163,6 +179,47 @@ router.get('/views/:site/:username', function(req, res){
 });
 
 
+function getProjects(callback){
+	var results = [];
+
+    // Get a Postgres client from the connection pool
+    var client = new pg.Client(connectionString);
+
+    client.connect(function(err) {
+		
+	    // SQL Query > Select Data
+	    var sql = 
+		'SELECT ' +
+		   '_projects.name ' +
+		'FROM ' +
+		    '_sites ' +
+		    'INNER JOIN _projects ON _sites.id = _projects.site_id ' +
+		'WHERE ' +
+		    '_sites.name = $1 ' +
+		    'AND _projects.name NOT IN ($2, $3) ' + 
+		'ORDER BY name';
+
+		
+	    var query = client.query(
+			sql, ['testsite', 'default', 'Tableau Samples']);
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            callback(results);
+        });
+
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
+    });
+}
 function getSites(callback){
 	var results = [];
 
@@ -197,6 +254,71 @@ function getSites(callback){
         }
     });
 }
+function getProjectView(callback){
 
+	var results = [];
+
+	var map = new HashMap();
+
+    var projects = [];
+
+    // Get a Postgres client from the connection pool
+    var client = new pg.Client(connectionString);
+
+    client.connect(function(err) {
+		
+	    // SQL Query > Select Data
+	    var sql = 'SELECT DISTINCT ' +
+					    '_projects.name AS ProjectName,' +
+					    '_views.name AS ViewName ' +
+					'FROM ' +
+					    '_sites ' +
+					    'INNER JOIN _projects ON _sites.id = _projects.site_id ' +
+					    'INNER JOIN _workbooks ON _projects.id = _workbooks.project_id ' +
+					    'INNER JOIN _views ON _workbooks.id = _views.workbook_id ' +
+					'WHERE ' +
+					    '_sites.name = $1 AND ' +
+					    '_projects.name NOT IN ($2, $3) ' +
+					'ORDER BY ProjectName, ViewName'
+		
+	    var query = client.query(sql, ['testsite', 'default', 'Tableau Samples']);
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+
+            var match = false;
+
+            for(var i =0 ; i< projects.length; i++){
+
+                // console.log('made it here -' + i);
+
+                if(projects[i].name === row.projectname){
+                    projects[i].views.push(row.viewname);
+                    match = true;
+                }
+            }
+        	
+            if(!match){
+                var newProject = {};
+                newProject.name = row.projectname;
+                newProject.views = [row.viewname];
+                projects.push(newProject);
+            }
+
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            client.end();
+            console.log(projects);
+           callback(projects);
+        });
+
+        // Handle Errors
+        if(err) {
+          console.log(err);
+        }
+    });
+}
 
 module.exports = router;

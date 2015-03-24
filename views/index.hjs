@@ -45,22 +45,21 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Trading <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                {{items}}}
-                <!-- <li><a href="#">{{items}}}</a></li> -->
-               <!--  <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li> -->
-              </ul>
-            </li>
-            <li><a href="#">Risk</a></li>
+           
+            {{#projects}}
+                <li class="dropdown">             
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{name}} <span class="caret">
+                  </span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    {{#views}}
+                      <li><a href="#">{{.}}</a></li>
+                    {{/views}}
+                  </ul>
+              </li>
+            {{/projects}}
+            <!-- <li><a href="#">Risk</a></li>
             <li><a href="#">Operations</a></li>
-            <li><a href="/login">Accounting & Risk</a></li>
+            <li><a href="/login">Accounting & Risk</a></li> -->
           </ul>
         </div>
       </div>
@@ -77,7 +76,7 @@
          width: "1200px",
          height: "800px"
       };
-      viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
+      //viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
     </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
