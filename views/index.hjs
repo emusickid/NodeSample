@@ -11,23 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
 
     <title>{{ appname }}</title>
-
-    <!-- Bootstrap core CSS -->
-    <!-- href='/stylesheets/style.css' -->
-    <!-- <link href="/stylesheets/bootstrap.min.css" rel="stylesheet"> -->
-
-    <!-- Custom styles for this template -->
     <link href="/stylesheets/dashboard.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-   
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -35,13 +19,13 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+         <!--  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Allegro Insight</a>
+          </button> -->
+          <a class="navbar-brand" href="/">{{appname}}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -76,7 +60,7 @@
          width: "1200px",
          height: "800px"
       };
-      //viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
+      viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
     </script>
     <!-- Bootstrap core JavaScript
     ================================================== -->

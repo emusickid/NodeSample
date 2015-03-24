@@ -31,6 +31,7 @@ router.get('/', function(req, res){
 
  		//res.send(results);
         res.render('index', {
+            appname: 'Allegro Insight',
             projects: results
         });
  		// console.log(results);
