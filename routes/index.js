@@ -34,7 +34,6 @@ router.get('/', function(req, res){
             appname: 'Allegro Insight',
             projects: results
         });
- 		// console.log(results);
  	});
 });
 
@@ -271,7 +270,8 @@ function getProjectView(callback){
 	    // SQL Query > Select Data
 	    var sql = 'SELECT DISTINCT ' +
 					    '_projects.name AS ProjectName,' +
-					    '_views.name AS ViewName ' +
+					    '_views.name AS ViewName ,' +
+                        '_views.view_url AS ViewURL ' +
 					'FROM ' +
 					    '_sites ' +
 					    'INNER JOIN _projects ON _sites.id = _projects.site_id ' +
@@ -294,7 +294,7 @@ function getProjectView(callback){
                 // console.log('made it here -' + i);
 
                 if(projects[i].name === row.projectname){
-                    projects[i].views.push(row.viewname);
+                    projects[i].views.push({viewname: row.viewname, viewurl: row.viewurl});
                     match = true;
                 }
             }
@@ -302,7 +302,7 @@ function getProjectView(callback){
             if(!match){
                 var newProject = {};
                 newProject.name = row.projectname;
-                newProject.views = [row.viewname];
+                newProject.views = [ {viewname: row.viewname, viewurl: row.viewurl}];
                 projects.push(newProject);
             }
 
