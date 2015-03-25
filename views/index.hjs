@@ -61,7 +61,7 @@
         viz.dispose();
       }
       
-      var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/testsite/views/" + viewurl + "";
+      var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/" + viewurl + "";
       var options = {
          hideTabs: true,
          width: "1200px",

@@ -13,13 +13,13 @@ router.get('/', function(req, res){
     
     // res.send(map);
 
-	// getSites(function(results){
-	// 	res.send(results);
+	getSites(function(results){
+		//res.send(results);
 
-	// 	// res.render('index', {
-	// 	// 	sites : results
-	// 	// });
-	// });
+		res.render('siteInfo', {
+			sites : results
+		});
+	});
 
 	// getProjects(function(results){
 	// 	res.render('index', {
@@ -27,16 +27,29 @@ router.get('/', function(req, res){
 	// 	});
 	// });
 
- 	getProjectView(function(results){
 
- 		//res.send(results);
+ 	// getProjectView(function(results){
+
+ 	// 	//res.send(results);
+  //       res.render('index', {
+  //           appname: 'Allegro Insight',
+  //           projects: results
+  //       });
+ 	// });
+});
+
+
+router.get('/index/:site', function(req, res){
+
+    getProjectView(req.params.site, function(results){
+
+     // res.send(results);
         res.render('index', {
             appname: 'Allegro Insight',
             projects: results
         });
- 	});
-});
-
+    });
+})
 
 router.get('/projects', function(req, res){
 
@@ -254,7 +267,10 @@ function getSites(callback){
         }
     });
 }
-function getProjectView(callback){
+function getProjectView(site, callback){
+
+
+    console.log(site);
 
 	var results = [];
 
@@ -282,19 +298,19 @@ function getProjectView(callback){
 					    '_projects.name NOT IN ($2, $3) ' +
 					'ORDER BY ProjectName, ViewName'
 		
-	    var query = client.query(sql, ['testsite', 'default', 'Tableau Samples']);
+	    var query = client.query(sql, [site, 'default', 'Tableau Samples']);
 
         // Stream results back one row at a time
         query.on('row', function(row) {
-
+            
             var match = false;
-
+            var urlPrefix = site + '/views/'
             for(var i =0 ; i< projects.length; i++){
 
                 // console.log('made it here -' + i);
 
                 if(projects[i].name === row.projectname){
-                    projects[i].views.push({viewname: row.viewname, viewurl: row.viewurl});
+                    projects[i].views.push({viewname: row.viewname, viewurl: urlPrefix + row.viewurl});
                     match = true;
                 }
             }
@@ -302,7 +318,7 @@ function getProjectView(callback){
             if(!match){
                 var newProject = {};
                 newProject.name = row.projectname;
-                newProject.views = [ {viewname: row.viewname, viewurl: row.viewurl}];
+                newProject.views = [ {viewname: row.viewname, viewurl: urlPrefix + row.viewurl}];
                 projects.push(newProject);
             }
 
@@ -311,8 +327,7 @@ function getProjectView(callback){
         // After all data is returned, close connection and return results
         query.on('end', function() {
             client.end();
-            console.log(projects);
-           callback(projects);
+            callback(projects);
         });
 
         // Handle Errors
