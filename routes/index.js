@@ -17,7 +17,8 @@ router.get('/', function(req, res){
 		//res.send(results);
 
 		res.render('siteInfo', {
-			sites : results
+			sites : results,
+            appname: 'Allegro Insight'
 		});
 	});
 
