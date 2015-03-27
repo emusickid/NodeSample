@@ -2,16 +2,8 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@54.187.16.121:8060/workgroup";;
-var HashMap = require('hashmap').HashMap;
 
 router.get('/', function(req, res){
-
-    // var map = new HashMap();
-
-    // map.set({'name' : 'Risk'}, [{'name' : 'MTM View'}, {'name' : 'View2'}]);
-    // map.set({'name' : 'Trade'}, [{'name' :'Trade View'}, {'name': 'View3'}]);
-    
-    // res.send(map);
 
 	getSites(function(results){
 		//res.send(results);
@@ -21,24 +13,7 @@ router.get('/', function(req, res){
             appname: 'Allegro Insight'
 		});
 	});
-
-	// getProjects(function(results){
-	// 	res.render('index', {
-	// 		projects : results
-	// 	});
-	// });
-
-
- 	// getProjectView(function(results){
-
- 	// 	//res.send(results);
-  //       res.render('index', {
-  //           appname: 'Allegro Insight',
-  //           projects: results
-  //       });
- 	// });
 });
-
 
 router.get('/index/:site', function(req, res){
 
@@ -269,13 +244,6 @@ function getSites(callback){
     });
 }
 function getProjectView(site, callback){
-
-
-    console.log(site);
-
-	var results = [];
-
-	var map = new HashMap();
 
     var projects = [];
 
