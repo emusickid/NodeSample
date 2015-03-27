@@ -46,9 +46,6 @@
                   </ul>
               </li>
             {{/projects}}
-            <!-- <li><a href="#">Risk</a></li>
-            <li><a href="#">Operations</a></li>
-            <li><a href="/login">Accounting & Risk</a></li> -->
           </ul>
         </div>
       </div>
