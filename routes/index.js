@@ -142,7 +142,7 @@ router.get('/views/:site/:username', function(req, res){
 				'AND perm.authorizable_type = $4 ' +
 				'AND perm.grantee_type = $5 ' +
 				// 'AND _users.name = $6 ' +
-			'ORDER BY ViewName';
+			'';
 
 		   
 	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group' /*, username*/]);
@@ -150,6 +150,7 @@ router.get('/views/:site/:username', function(req, res){
 
         // Stream results back one row at a time
         query.on('row', function(row) {
+            console.log(row);
             results.push(row);
         });
 

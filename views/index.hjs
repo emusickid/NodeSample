@@ -37,6 +37,7 @@
           <ul class="nav navbar-nav navbar-left">
            
             {{#projects}}
+<<<<<<< HEAD
               <li class="dropdown">             
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{name}} <span class="caret">
                 </span></a>
@@ -45,6 +46,16 @@
                     <li draggable="true" ondragstart="drag(event)" ondragover="drop(event)" ondrop="drop(event)" > <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
                   {{/views}}
                 </ul>
+=======
+                <li class="dropdown">             
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{name}} <span class="caret">
+                  </span></a>
+                  <ul id=viewlist class="dropdown-menu" role="menu">
+                    {{#views}}
+                      <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)"> <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
+                    {{/views}}
+                  </ul>
+>>>>>>> cce4888f15042c0c8300e2d06676e9041739eb3c
               </li>
             {{/projects}}
           </ul>
@@ -54,6 +65,7 @@
 
     <script>
 
+<<<<<<< HEAD
       var dragSourceElement = null;
 
       function allowDrop(ev) {
@@ -79,6 +91,33 @@
     </script>
 
 
+=======
+      var sourceId = 'Id';
+
+      function startDrag(e){
+        sourceId = e.currentTarget.id;
+        e.dataTransfer.setData("text",e.currentTarget.innerHTML);
+      }
+      function allowDrop(e) {
+          e.preventDefault();
+      }
+
+      function drop(e) {
+
+        e.preventDefault();
+
+        var sourceHTML = e.dataTransfer.getData('Text');
+        var tagetHTML = e.currentTarget.innerHTML;
+
+        var dropLocation = document.getElementById(e.currentTarget.id);
+        var sourceLocation = document.getElementById(sourceId);
+        
+        dropLocation.innerHTML = sourceHTML;
+        sourceLocation.innerHTML = tagetHTML;
+      }
+
+    </script>
+>>>>>>> cce4888f15042c0c8300e2d06676e9041739eb3c
 
     <script type="text/javascript" src="http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/javascripts/api/tableau_v8.js"></script>
     
