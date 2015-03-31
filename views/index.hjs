@@ -41,7 +41,7 @@
                   </span></a>
                   <ul id=viewlist class="dropdown-menu" role="menu">
                     {{#views}}
-                      <li value={{viewurl}} > <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
+                      <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)"> <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
                     {{/views}}
                   </ul>
               </li>
@@ -50,6 +50,35 @@
         </div>
       </div>
     </nav>
+
+    <script>
+
+      var sourceId = 'Id';
+
+      function startDrag(e){
+        sourceId = e.currentTarget.id;
+        e.dataTransfer.setData("text",e.currentTarget.innerHTML);
+      }
+      function allowDrop(e) {
+          e.preventDefault();
+      }
+
+      function drop(e) {
+
+        e.preventDefault();
+
+        var sourceHTML = e.dataTransfer.getData('Text');
+        var tagetHTML = e.currentTarget.innerHTML;
+
+        var dropLocation = document.getElementById(e.currentTarget.id);
+        var sourceLocation = document.getElementById(sourceId);
+        
+        dropLocation.innerHTML = sourceHTML;
+        sourceLocation.innerHTML = tagetHTML;
+      }
+
+    </script>
+
     <script type="text/javascript" src="http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/javascripts/api/tableau_v8.js"></script>
     
     <div class="col-lg-1 col-centered" id="tableauViz" style="height:1200px; width:1200px"\></div>
