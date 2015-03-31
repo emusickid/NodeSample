@@ -14,7 +14,7 @@ router.get('/', function(req, res){
 		});
 	});
 });
-
+ 
 router.get('/index/:site', function(req, res){
 
     getProjectView(req.params.site, function(results){
