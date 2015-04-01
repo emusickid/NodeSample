@@ -15,7 +15,6 @@
     <style type="text/css">
       html, body {
         height: 100%;
-        width: 100%;
         margin: 0;
       }
 
@@ -37,16 +36,6 @@
           <ul class="nav navbar-nav navbar-left">
            
             {{#projects}}
-<<<<<<< HEAD
-              <li class="dropdown">             
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{name}} <span class="caret">
-                </span></a>
-                <ul id=viewlist class="dropdown-menu" role="menu">
-                  {{#views}}
-                    <li draggable="true" ondragstart="drag(event)" ondragover="drop(event)" ondrop="drop(event)" > <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
-                  {{/views}}
-                </ul>
-=======
                 <li class="dropdown">             
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{name}} <span class="caret">
                   </span></a>
@@ -55,7 +44,6 @@
                       <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)"> <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
                     {{/views}}
                   </ul>
->>>>>>> cce4888f15042c0c8300e2d06676e9041739eb3c
               </li>
             {{/projects}}
           </ul>
@@ -65,33 +53,6 @@
 
     <script>
 
-<<<<<<< HEAD
-      var dragSourceElement = null;
-
-      function allowDrop(ev) {
-          ev.preventDefault();
-      }
-
-      function drag(ev) {
-          var code = ev.target.innerHTML;
-          //ev.dataTransfer.setData("text", ev.target.id);
-          ev.dataTransfer.effectAllowed = 'move';
-          ev.dataTransfer.setData('Text', code);
-      }
-
-      function drop(ev) {
-          ev.preventDefault();
-
-          if(dragSourceElement != this){
-            dragSourceElement.innerHTML = this.innerHTML;
-            this.innerHTML = ev.dataTransfer.getData('text/html');
-            console.log(this.innerHTML);
-          }
-      }
-    </script>
-
-
-=======
       var sourceId = 'Id';
 
       function startDrag(e){
@@ -117,7 +78,6 @@
       }
 
     </script>
->>>>>>> cce4888f15042c0c8300e2d06676e9041739eb3c
 
     <script type="text/javascript" src="http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/javascripts/api/tableau_v8.js"></script>
     
@@ -134,9 +94,9 @@
       
       var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/" + viewurl + "";
       var options = {
-          hideTabs: true,
-          width: vizDiv.offsetWidth,
-          height: vizDiv.offsetHeight,
+         hideTabs: true,
+         width: "1200px",
+         height: "800px"
       };
       
       viz = new tableauSoftware.Viz(vizDiv, vizURL, options);
