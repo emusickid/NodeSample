@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +33,7 @@
       <div class="container-fluid">
         <div class="navbar-header">
 
-          <a class="navbar-brand" href="/">{{appname}}</a>
+           <a class="navbar-brand" href="/"><img src="/images/logo_032.png"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
