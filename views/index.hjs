@@ -24,7 +24,7 @@
     </style>
   </head>
 
-  <body>
+  <body onload="renderReport('Allegro/views/Executive-Summary/ExecutiveDashboard')">
 
    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -89,6 +89,7 @@
     <script type="text/javascript">
     function renderReport(viewurl){
             
+      console.log(viewurl);
       var vizDiv = document.getElementById('tableauViz');
 
       if(vizDiv.innerHTML.length > 0){
