@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@54.187.16.121:8060/workgroup";;
+var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@devsqltest:8060/workgroup";;
+var username = process.env.USERNAME;
 
 router.get('/', function(req, res){
 
-	getSites(function(results){
+    getSites(function(results){
 		//res.send(results);
 
 		res.render('siteInfo', {
@@ -122,9 +123,6 @@ router.get('/views/:site/:username', function(req, res){
 	    // SQL Query > Select Data
 	    var sql = 
 			'SELECT DISTINCT ' + 
-				// '_sites.name AS SiteName, ' +
-				// '_projects.name AS ProjectName, ' + 
-				// '_workbooks.name AS WorkbookName, ' +
 				'_views.name AS ViewName, ' +
 				'_views.view_url AS ViewURL ' +
 			'FROM ' +
@@ -141,11 +139,11 @@ router.get('/views/:site/:username', function(req, res){
 				'AND _projects.name NOT IN ($2, $3) ' +
 				'AND perm.authorizable_type = $4 ' +
 				'AND perm.grantee_type = $5 ' +
-				// 'AND _users.name = $6 ' +
+				'AND _users.name = $6 ' +
 			'';
 
 		   
-	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group' /*, username*/]);
+	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group', username]);
 
 
         // Stream results back one row at a time
@@ -259,16 +257,22 @@ function getProjectView(site, callback){
 					    '_views.name AS ViewName ,' +
                         '_views.view_url AS ViewURL ' +
 					'FROM ' +
-					    '_sites ' +
-					    'INNER JOIN _projects ON _sites.id = _projects.site_id ' +
-					    'INNER JOIN _workbooks ON _projects.id = _workbooks.project_id ' +
-					    'INNER JOIN _views ON _workbooks.id = _views.workbook_id ' +
-					'WHERE ' +
-					    '_sites.name = $1 AND ' +
-					    '_projects.name NOT IN ($2, $3) ' +
-					'ORDER BY ProjectName, ViewName'
+                        '_sites ' +
+                        'INNER JOIN _projects ON _sites.id = _projects.site_id ' +
+                        'INNER JOIN _workbooks ON _projects.id = _workbooks.project_id ' +
+                        'INNER JOIN _views ON _workbooks.id = _views.workbook_id ' +
+                        'INNER JOIN next_gen_permissions perm ON _views.id = perm.authorizable_id ' +
+                        'INNER JOIN _groups ON perm.grantee_id = _groups.id ' +
+                        'INNER JOIN group_users ON _groups.id = group_users.group_id ' +
+                        'INNER JOIN _users ON group_users.user_id = _users.id ' +
+                    'WHERE ' +
+                        '_sites.name = $1 ' +
+                        'AND _projects.name NOT IN ($2, $3) ' +
+                        'AND perm.authorizable_type = $4 ' +
+                        'AND perm.grantee_type = $5 ' +
+                        'AND _users.name = $6 '
 		
-	    var query = client.query(sql, [site, 'default', 'Tableau Samples']);
+	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group', username]);
 
         // Stream results back one row at a time
         query.on('row', function(row) {

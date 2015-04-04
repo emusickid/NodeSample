@@ -28,10 +28,12 @@
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
+
         <div class="navbar-header">
           <a class="navbar-brand" href="/"><img src="/images/logo_032.png"></a>
-          <span style="font-size: 1.5em; font-style: italic; color:white;">Insight</span>
+          <div style="font-size: 1.5em; font-style: italic; color:white;">Insight</div>
         </div>
+
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
            
@@ -92,7 +94,7 @@
         viz.dispose();
       }
       
-      var vizURL = "http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/t/" + viewurl + "";
+      var vizURL = "http://devsqltest/t/" + viewurl + "";
       var options = {
          hideTabs: true,
          width: "1200px",
