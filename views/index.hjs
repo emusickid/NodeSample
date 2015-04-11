@@ -99,7 +99,9 @@
       var options = {
          hideTabs: true,
          width: "1200px",
-         height: "800px"
+         height: "1200px",
+         hideTabs: true,
+         hideToolbar:true
       };
       
       viz = new tableauSoftware.Viz(vizDiv, vizURL, options);

@@ -299,7 +299,8 @@ function getProjectView(site, callback){
                         'AND _projects.name NOT IN ($2, $3) ' +
                         'AND perm.authorizable_type = $4 ' +
                         'AND perm.grantee_type = $5 ' +
-                        'AND _users.name = $6 '
+                        'AND _users.name = $6 ' +
+                        'ORDER BY 1;'
 		
 	    var query = client.query(sql, [site, 'default', 'Tableau Samples', 'View', 'Group', username]);
 
@@ -314,7 +315,7 @@ function getProjectView(site, callback){
 
                 // console.log('made it here -' + i);
 
-                if(projects[i].name === row.projectname){
+                if(projects[i].name === row.projectname.substring(2, row.projectname.length)){
                     projects[i].views.push({viewname: row.viewname, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl});
                     match = true;
                 }
@@ -322,7 +323,7 @@ function getProjectView(site, callback){
         	
             if(!match){
                 var newProject = {};
-                newProject.name = row.projectname;
+                newProject.name = row.projectname.substring(2, row.projectname.length);
                 newProject.views = [ {viewname: row.viewname, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl}];
                 projects.push(newProject);
             }
