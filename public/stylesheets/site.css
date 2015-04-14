@@ -128,15 +128,64 @@ body {
   padding: 10px;
   font-size: 100%
 }
-.allegroindex {
-  font-size: 1.5em; 
+a.allegroindex {
+  font-size: 25px; 
   font-style: bold; 
   font-style: italic;
   color:white;
-}
-.nodecoration {
   text-decoration: none;
+}
+a.allegroindex:hover{
+  color:white;
 }
 .tableauviews {
   opacity:1
+}
+@media (min-width: 768px) {
+  .dropdown-menu {
+    width: 100%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 0 auto;
+    text-align: center;
+    background: #efefef;
+    opacity: .95;
+  }
+
+  .dropdown-menu li {
+    display: inline-block;
+    width: 200px;
+    background-color: #CCC;
+    padding: 2px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .dropdown-menu li:hover {
+    background-color: #BBB;
+  }
+  .dropdown-menu li a:hover {
+    background-color: #BBB;
+  }
+
+  .dropdown-menu li a {
+    overflow: hidden;
+    padding: 3px;
+  }
+  .dropdown-menu li a img{
+  display: block;
+  margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 768px ) {
+  .dropdown-menu li img {
+    display: none;
+  }
 }

@@ -316,7 +316,7 @@ function getProjectView(site, callback){
                 // console.log('made it here -' + i);
 
                 if(projects[i].name === row.projectname.substring(2, row.projectname.length)){
-                    projects[i].views.push({viewname: row.viewname, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl});
+                    projects[i].views.push({viewname: row.viewname.substring(2, row.viewname.length), viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl});
                     match = true;
                 }
             }
@@ -324,7 +324,7 @@ function getProjectView(site, callback){
             if(!match){
                 var newProject = {};
                 newProject.name = row.projectname.substring(2, row.projectname.length);
-                newProject.views = [ {viewname: row.viewname, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl}];
+                newProject.views = [ {viewname: row.viewname.substring(2, row.viewname.length), viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl}];
                 projects.push(newProject);
             }
 

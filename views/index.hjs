@@ -24,14 +24,14 @@
     </style>
   </head>
 
-  <body onload="renderReport('Allegro/views/Executive-Summary/ExecutiveDashboard')">
+  <body onload="renderReport('Allegro/views/Executive-Summary/1_ExecutiveDashboard')">
 
    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
 
         <div class="navbar-brand nodecoration">
-          <a href="/"></a>
-          <span class="allegroindex nodecoration"><img src='/images/logo_032.png' />Insight</span>  
+          <a class="allegroindex nodecoration" href="/">
+            <img src='/images/logo_032.png' />Insight</a> 
           <!-- <div style="font-size: 1.5em; font-style: italic; color:white;">Insight</div> -->
         </div>
 
@@ -43,7 +43,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">{{name}} </a>
                   <ul id=viewlist class="dropdown-menu" role="menu">
                     {{#views}}
-                      <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)"> <img src=http://devsqltest/t/{{thumburl}} onclick="renderReport('{{viewurl}}')"/> <a href="#" onclick="renderReport('{{viewurl}}')" >{{viewname}}</a></li>
+                      <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)">  <a href="#" title="{{viewname}}" onclick="renderReport('{{viewurl}}')" > <img src=http://devsqltest/t/{{thumburl}} /> {{viewname}}</a></li>
                     {{/views}}
                   </ul>
               </li>
@@ -83,7 +83,7 @@
 
     <script type="text/javascript" src="http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/javascripts/api/tableau_v8.js"></script>
     
-    <div class="col-lg-1 col-centered" id="tableauViz" style="height:auto; width:auto"\></div>
+    <div class="col-lg-1 col-centered" id="tableauViz" style= "width:100%"\></div>
 
     <script type="text/javascript">
     function renderReport(viewurl){
@@ -98,7 +98,7 @@
       var vizURL = "http://devsqltest/t/" + viewurl + "";
       var options = {
          hideTabs: true,
-         width: "1200px",
+         width: "100%",
          height: "1200px",
          hideTabs: true,
          hideToolbar:true
