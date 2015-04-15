@@ -315,16 +315,28 @@ function getProjectView(site, callback){
 
                 // console.log('made it here -' + i);
 
-                if(projects[i].name === row.projectname.substring(2, row.projectname.length)){
-                    projects[i].views.push({viewname: row.viewname.substring(2, row.viewname.length), viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl});
+                var projectName = row.projectname;
+                var viewName = row.viewname;
+                var pattern = /^[0-9]_/;
+
+                if(pattern.test(projectName)){
+                     projectName = projectName.substring(2, projectName.length);
+                }
+                if(pattern.test(viewName)){
+                     viewName = viewName.substring(2, viewName.length);
+                }
+
+
+                if(projects[i].name === projectName){
+                    projects[i].views.push({viewname: viewName, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl});
                     match = true;
                 }
             }
         	
             if(!match){
                 var newProject = {};
-                newProject.name = row.projectname.substring(2, row.projectname.length);
-                newProject.views = [ {viewname: row.viewname.substring(2, row.viewname.length), viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl}];
+                newProject.name = projectName;
+                newProject.views = [ {viewname: viewName, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl}];
                 projects.push(newProject);
             }
 
