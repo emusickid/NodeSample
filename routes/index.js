@@ -20,7 +20,7 @@ router.get('/index/:site', function(req, res){
 
     getProjectView(req.params.site, function(results){
 
-     // res.send(results);
+      // res.send(results);
         res.render('index', {
             appname: 'Allegro Insight',
             projects: results
@@ -307,25 +307,23 @@ function getProjectView(site, callback){
         // Stream results back one row at a time
         query.on('row', function(row) {
             
+
             var match = false;
             var urlPrefix = site + '/views/';
             var thumbUrlPrefix = site + '/thumb/views/';
 
+            var projectName = row.projectname;
+            var viewName = row.viewname;
+            var pattern = /^[0-9]_/;
+
+            if(pattern.test(projectName)){
+                 projectName = projectName.substring(2, projectName.length);
+            }
+            if(pattern.test(viewName)){
+                 viewName = viewName.substring(2, viewName.length);
+            }
+
             for(var i =0 ; i< projects.length; i++){
-
-                // console.log('made it here -' + i);
-
-                var projectName = row.projectname;
-                var viewName = row.viewname;
-                var pattern = /^[0-9]_/;
-
-                if(pattern.test(projectName)){
-                     projectName = projectName.substring(2, projectName.length);
-                }
-                if(pattern.test(viewName)){
-                     viewName = viewName.substring(2, viewName.length);
-                }
-
 
                 if(projects[i].name === projectName){
                     projects[i].views.push({viewname: viewName, viewurl: urlPrefix + row.viewurl, thumburl: thumbUrlPrefix + row.viewurl});
