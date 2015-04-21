@@ -24,7 +24,7 @@
     </style>
   </head>
 
-  <body onload="renderReport('Allegro/views/Executive-Summary/1_ExecutiveDashboard')">
+  <body onload="renderReport('{{site}}/views/Executive-Summary/1_ExecutiveDashboard')">
 
    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -81,21 +81,21 @@
 
     </script>
 
-    <script type="text/javascript" src="http://ec2-54-187-16-121.us-west-2.compute.amazonaws.com/javascripts/api/tableau_v8.js"></script>
+    <script src="http://insight/javascripts/api/tableau_v8.js"></script>
     
     <div class="col-lg-1 col-centered" id="tableauViz" style= "width:100%"\></div>
 
     <script type="text/javascript">
     function renderReport(viewurl){
             
-      console.log(viewurl);
+      //console.log(viewurl);
       var vizDiv = document.getElementById('tableauViz');
 
       if(vizDiv.innerHTML.length > 0){
         viz.dispose();
       }
       
-      var vizURL = "http://devsqltest/t/" + viewurl + "";
+      var vizURL = "http://insight/t/" + viewurl + "";
       var options = {
          hideTabs: true,
          width: "100%",

@@ -23,7 +23,8 @@ router.get('/index/:site', function(req, res){
       // res.send(results);
         res.render('index', {
             appname: 'Allegro Insight',
-            projects: results
+            projects: results,
+            site: req.params.site
         });
     });
 })
