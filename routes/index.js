@@ -3,6 +3,7 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = /*process.env.DATABASE_URL ||*/ "postgres://tableau:passw0rd@devsqltest:8060/workgroup";;
 var username = process.env.USERNAME;
+var config = require('config');
 
 router.get('/', function(req, res){
 
@@ -24,7 +25,8 @@ router.get('/index/:site', function(req, res){
         res.render('index', {
             appname: 'Allegro Insight',
             projects: results,
-            site: req.params.site
+            site: req.params.site,
+            host: config.get('Environment.host')
         });
     });
 })

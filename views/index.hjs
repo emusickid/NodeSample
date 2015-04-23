@@ -43,7 +43,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">{{name}} </a>
                   <ul id=viewlist class="dropdown-menu" role="menu">
                     {{#views}}
-                      <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)">  <a href="#" title="{{viewname}}" onclick="renderReport('{{viewurl}}')" > <img src=http://devsqltest/t/{{thumburl}} /> {{viewname}}</a></li>
+                      <li id={{viewurl}} draggable="true" ondrop="drop(event)" ondragstart="startDrag(event)" ondragover="allowDrop(event)">  <a href="#" title="{{viewname}}" onclick="renderReport('{{viewurl}}')" > <img src=http://{{host}}/t/{{thumburl}} /> {{viewname}}</a></li>
                     {{/views}}
                   </ul>
               </li>
@@ -95,7 +95,7 @@
         viz.dispose();
       }
       
-      var vizURL = "http://devsqltest/t/" + viewurl + "";
+      var vizURL = "http://{{host}}/t/" + viewurl + "";
       var options = {
          hideTabs: true,
          width: "100%",
