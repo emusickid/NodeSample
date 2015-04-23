@@ -81,7 +81,7 @@
 
     </script>
 
-    <script src="http://insight/javascripts/api/tableau_v8.js"></script>
+    <script src="/javascripts/tableau_v8.dedug.js"></script>
     
     <div class="col-lg-1 col-centered" id="tableauViz" style= "width:100%"\></div>
 
