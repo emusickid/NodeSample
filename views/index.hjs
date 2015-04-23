@@ -81,7 +81,7 @@
 
     </script>
 
-    <script src="/javascripts/tableau_v8.dedug.js"></script>
+    <script src="/javascripts/tableau_v8.debug.js"></script>
     
     <div class="col-lg-1 col-centered" id="tableauViz" style= "width:100%"\></div>
 
@@ -95,7 +95,7 @@
         viz.dispose();
       }
       
-      var vizURL = "http://insight/t/" + viewurl + "";
+      var vizURL = "http://devsqltest/t/" + viewurl + "";
       var options = {
          hideTabs: true,
          width: "100%",
